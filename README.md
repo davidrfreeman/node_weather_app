@@ -1,2 +1,2 @@
-# node_weather_app
+# Node Weather App
 Nodejs weather app with Jest tests

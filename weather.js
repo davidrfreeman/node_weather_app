@@ -28,10 +28,12 @@ async function getWeatherData() {
 
 // getIpInfo()
 
-module.exports = { 
-  getIpInfo : getIpInfo,
-  getWeatherData : getWeatherData
-}
+// module.exports = { 
+//   getIpInfo : getIpInfo,
+//   getWeatherData : getWeatherData
+// }
+
+module.exports = exports = getIpInfo
 
   // let lat,
   // lon,

@@ -1,4 +1,4 @@
-const location = require('./weather')
+const weatherFuncs = require('./weather')
 
 // test('Converts celsius to farenheight', () => {
 //   expect(tempConversion(0, 'C')).toBe(32)
@@ -6,7 +6,7 @@ const location = require('./weather')
 
 describe('Tests for ip location functions', () =>{
   test('Returns array with length of two', async () => {
-    const data = await location()
+    const data = await weatherFuncs.getIpInfo()
     const locArr = data.loc.split(',')
     expect(locArr).toHaveLength(2)
   })

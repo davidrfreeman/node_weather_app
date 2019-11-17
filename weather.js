@@ -1,42 +1,53 @@
 const fetch = require('node-fetch')
-
-// fetch('https://api.github.com/users/github')
-//   .then(res => res.json())
-//   .then(json => console.log(json))
-
-const lat = ''
-const lon = ''
-
-const weatherUrl = 'https://api.openweathermap.org/data/2.5/weather'
-
-let ipinfo = {}
-let loc
+// this imports the api key required to call the openweathermap api
+const appId = require('../../.keys/openweather')
 
 async function getIpInfo() {
-  ipinfo = await fetch('https://ipinfo.io/json')
+  //function that calls the iopinfo.io api and returns an object with users location data
+  const ipinfo = await fetch('https://ipinfo.io/json')
     .then(res => res.json())
 
-    return ipinfo
+  return ipinfo
+}
+
+async function getLatLon() {
+  //function that uses the getIpInfo funciton's returned object and then splits the lat and long property into an array
+  const ipInfoData = await getIpInfo()
+  const location = ipInfoData.loc.split(',')
+
+  return location
 }
 
 async function getWeatherData() {
-  let weatherinfo = await fetch(`${weatherUrl}lat=${lat}&lon=${lon}&appId=${appId}`)
+  //function to query openweather api using lat and long to return location's weather data
+  const weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
+  const [lat, lon] = await getLatLon()
+  console.log(lat, lon)
+  const weatherinfo = await fetch(`${weatherUrl}lat=${lat}&lon=${lon}&appId=${appId}`)
     .then(res => res.json())
-    
-    return weatherinfo
+  
+  return weatherinfo
 }
 
-// getIpInfo()
-
-module.exports = { 
-  getIpInfo : getIpInfo,
-  getWeatherData : getWeatherData
+async function main() {
+  const data = await getWeatherData()
+  // console.log(data)
+  return data
 }
 
-  // let lat,
-  // lon,
-  // weatherUrl = "https://api.openweathermap.org/data/2.5/weather?",
-  // appId = "5ff51663eb541e74296530b17a1eaf5e"
+main()
+  .then( (res) => {
+    console.log(res)
+  })
+  .catch((e) => {
+    console.log("Request failed", e)
+  })
+
+module.exports = {
+  getIpInfo,
+  getLatLon,
+  getWeatherData
+}
 
 // function getWeather () { fetch('https://ipinfo.io/json', {
 // mode: 'cors'

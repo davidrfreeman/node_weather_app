@@ -22,10 +22,10 @@ async function getWeatherData() {
   //function to query openweather api using lat and long to return location's weather data
   const weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?'
   const [lat, lon] = await getLatLon()
-  console.log(lat, lon)
+  //call openweatherapi and format return object as JSON
   const weatherinfo = await fetch(`${weatherUrl}lat=${lat}&lon=${lon}&appId=${appId}`)
     .then(res => res.json())
-  
+  //return this JSON object
   return weatherinfo
 }
 

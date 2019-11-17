@@ -29,20 +29,6 @@ async function getWeatherData() {
   return weatherinfo
 }
 
-async function main() {
-  const data = await getWeatherData()
-  // console.log(data)
-  return data
-}
-
-main()
-  .then( (res) => {
-    console.log(res)
-  })
-  .catch((e) => {
-    console.log("Request failed", e)
-  })
-
 module.exports = {
   getIpInfo,
   getLatLon,
